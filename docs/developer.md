@@ -20,7 +20,7 @@ Creates a new card.
 #### Request Body:
 \`\`\`json
 {
-  "text": "New Task",
+  "text": "New Card",
   "column": "To Do"
 }
 \`\`\`

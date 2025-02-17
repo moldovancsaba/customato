@@ -15,7 +15,7 @@ const KanbanBoard = () => {
   const [cards, setCards] = useState<CardType[]>([]);
 
   const addCard = () => {
-    setCards([...cards, { id: Date.now().toString(), text: "New Task", column: "To Do" }]);
+    setCards([...cards, { id: Date.now().toString(), text: "New Card", column: "To Do" }]);
   };
 
   const moveCard = (id: string, fromColumn: string, toColumn: string) => {
@@ -28,7 +28,7 @@ const KanbanBoard = () => {
     <DndProvider backend={HTML5Backend}>
       <div className="p-4">
         <Button variant="contained" startIcon={<Add />} onClick={addCard}>
-          Add Task
+          Add Card
         </Button>
       </div>
       <div className="flex justify-between p-4">
