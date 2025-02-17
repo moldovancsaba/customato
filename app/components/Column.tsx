@@ -6,7 +6,7 @@ import Card from "./Card";
 
 type ColumnProps = {
   title: string;
-  cards: { id: string; text: string; column: string }[];
+  cards: { id: string; text: string; column: string; updatedAt: string }[];
   moveCard: (id: string, fromColumn: string, toColumn: string) => void;
 };
 
@@ -15,14 +15,14 @@ const Column: FC<ColumnProps> = ({ title, cards, moveCard }) => {
 
   const [, drop] = useDrop({
     accept: "CARD",
-    drop: (item: { id: string; text: string; column: string }) => {
+    drop: (item: { id: string; text: string; column: string; updatedAt: string }) => {
       if (item.column !== title) {
         moveCard(item.id, item.column, title);
       }
     },
   });
 
-  drop(ref); // Attach drop function to the ref
+  drop(ref);
 
   return (
     <div ref={ref} className="flex flex-col w-1/4 bg-gray-200 p-2 rounded">

@@ -6,8 +6,9 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Column from "./Column";
 import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
+import generateUniqueId from "../../lib/generateUniqueId"; // ✅ Ensure correct import
 
-type CardType = { id: string; text: string; column: string };
+type CardType = { id: string; text: string; column: string; updatedAt: string };
 
 const initialColumns = ["To Do", "In Progress", "Review", "Done"];
 
@@ -15,12 +16,20 @@ const KanbanBoard = () => {
   const [cards, setCards] = useState<CardType[]>([]);
 
   const addCard = () => {
-    setCards([...cards, { id: Date.now().toString(), text: "New Card", column: "To Do" }]);
+    const newCard = {
+      id: generateUniqueId(),
+      text: "New Card",
+      column: "To Do",
+      updatedAt: new Date().toISOString(), // ✅ Ensure  is set
+    };
+    setCards([...cards, newCard]);
   };
 
   const moveCard = (id: string, fromColumn: string, toColumn: string) => {
     setCards((prevCards) =>
-      prevCards.map((card) => (card.id === id ? { ...card, column: toColumn } : card))
+      prevCards.map((card) =>
+        card.id === id ? { ...card, column: toColumn, updatedAt: new Date().toISOString() } : card
+      )
     );
   };
 
