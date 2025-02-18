@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { useRouter } from "next/navigation"; // ✅ Add router for navigation
 import Column from "./Column";
 import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
@@ -13,6 +14,7 @@ type CardType = { id: string; text: string; column: string; updatedAt: string };
 const initialColumns = ["To Do", "In Progress", "Review", "Done"];
 
 const KanbanBoard = () => {
+  const router = useRouter(); // ✅ Use router to navigate
   const [cards, setCards] = useState<CardType[]>([]);
 
   const addCard = () => {
@@ -20,7 +22,7 @@ const KanbanBoard = () => {
       id: generateUniqueId(),
       text: "New Card",
       column: "To Do",
-      updatedAt: new Date().toISOString(), // ✅ Ensure  is set
+      updatedAt: new Date().toISOString(),
     };
     setCards([...cards, newCard]);
   };
@@ -35,10 +37,13 @@ const KanbanBoard = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="p-4">
+      <div className="p-4 flex gap-4">
         <Button variant="contained" startIcon={<Add />} onClick={addCard}>
           Add Card
         </Button>
+        <Button variant="outlined" onClick={() => router.push("/mongodb-test")}>
+          Test MongoDB
+        </Button> 
       </div>
       <div className="flex justify-between p-4">
         {initialColumns.map((col) => (
